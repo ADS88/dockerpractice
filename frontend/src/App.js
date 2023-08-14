@@ -4,7 +4,7 @@ import GoalInput from './components/goals/GoalInput';
 import CourseGoals from './components/goals/CourseGoals';
 import ErrorAlert from './components/UI/ErrorAlert';
 
-const BASE_API_URL = `http://goals-backend`
+const BASE_API_URL = 'http://localhost'
 
 function App() {
   const [loadedGoals, setLoadedGoals] = useState([]);
