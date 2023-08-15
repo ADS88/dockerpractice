@@ -1,0 +1,34 @@
+version: "3.8"
+
+services:
+  goals-mongodb:
+    image: mongo:latest
+    env_file:
+      - ./env/mongo.env
+    volumes:
+      - goals-mongo-volume:/data/db/
+
+  goals-backend:
+    build: ./backend
+    ports:
+      - "80:80"
+    env_file:
+      - ./env/backend.env
+    depends_on:
+      - "goals-mongodb"
+    volumes:
+      - "./backend:/app" 
+      - "/app/node_modules" 
+      - "goals-logs:/app/logs"
+
+  goals-frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - "./frontend/src:/app/src"
+      - "/app/node_modules"
+
+volumes:
+  goals-mongo-volume:
+  goals-logs:
