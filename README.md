@@ -13,13 +13,14 @@ now you can clone this repository, then run each of the containers individually 
 
 ### Database
 <ol>
-<li>Start the docker container for the database: docker run --name goals-mongodb -v goals-mongo-volume:/data/db --network goals-network mongo</li>
+<li>Add values for DB_PASSWORD and DB_USERNAME within the .env file in the backend directory</li>
+<li>Start the docker container for the database (Note: Replace username_here and password_here with the values you chose for these fields in the .env file): docker run --name goals-mongodb -v goals-mongo-volume:/data/db --network goals-network -e MONGO_INITDB_ROOT_USERNAME=username_here -e MONGO_INITDB_ROOT_PASSWORD=password_here mongo</li>
 </ol>
 
 ### Backend
 <ol>
 <li>Build the docker image for the backend: docker build -t goals-backend ./backend</li>
-<li>Start the docker container for the backend (Note: You need to replace 'absolute_path_to_project_root' with the absolute file path to your projects root): docker run -p 80:80 --name goals-backend -v "absolute_path_to_project_root/backend:/app" -v /app/node_modules --network goals-network goals-backend</li>
+<li>Start the docker container for the backend (Note: You need to replace 'absolute_path_to_project_root' with the absolute file path to your projects root): docker run -p 80:80 --name goals-backend -v "absolute_path_to_project_root/backend:/app" -v /app/node_modules -v goals-logs:/app/logs --network goals-network --env-file ./backend/.env goals-backend</li>
 </ol>
 
 ### Frontend
