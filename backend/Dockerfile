@@ -6,4 +6,5 @@ COPY . .
 EXPOSE 80
 ENV DB_USERNAME=
 ENV DB_PASSWORD=
+ENV DB_URL=
 CMD [ "npm", "start"]
